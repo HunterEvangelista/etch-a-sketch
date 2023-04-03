@@ -1,0 +1,8 @@
+.sketch-pad {
+    display: flex;
+    border: 1px solid black;
+}
+
+.grid-div {
+    border: 1px solid black;
+}
