@@ -1,23 +1,14 @@
 const divClassName = "grid-div";
-const gridContainer = document.querySelector(".sketch-pad"); // this is returning null
-let gridHeight = 16
-let gridLength = 16
-let gridArray = []
-let gridCount = gridHeight * gridLength;
+const gridContainer = document.querySelector(".sketch-pad");
 
-for(let i = 1; i <= gridCount; i++) {
-    // eval(`let div${i} = document.createElement("div");`)
-    // // eval(`div${i}.classList.add('${divClassName}');`);
-    // eval(`gridArray.push(div${i});`)
-    window[`div${i}`] = document.createElement("div");
-    window[`div${i}`].classList.add(divClassName);
-    // window[`div${i}`].innerHTML = i;
-    // gridArray.push(window[`div${i}`]);
-    gridContainer.appendChild(window[`div${i}`]);
-
+function createGrid(width) {
+    for(let i = 1; i <= width**2; i++) {
+        window[`div${i}`] = document.createElement("div");
+        window[`div${i}`].classList.add(divClassName);
+        gridContainer.appendChild(window[`div${i}`]);
+    }
 }
 
-// gridContainer.appendChild(window)
-// for(i = 0; i < gridArray.length; i++) {
-//     gridContainer.appendChild(window[`${gridArray[i]}`]);
-// }
+// hard code this for now but the idea is too call this every time the user changes the size of the pad
+createGrid(16);
+
