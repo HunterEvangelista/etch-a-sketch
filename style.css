@@ -1,8 +1,28 @@
-.sketch-pad {
+.sketch-frame {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    width: 70vh;
+    background-color: red;
+}
+
+.sketch-pad {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
     border: 1px solid black;
+    flex-wrap: wrap;
+    background-color: white;
+    height: 60vh;
+    width: 60vh;
 }
 
 .grid-div {
     border: 1px solid black;
+    flex-grow: 1;
+    flex-basis: 50%;
+}
+
+.grid-div:hover {
+    background-color: black;
 }
