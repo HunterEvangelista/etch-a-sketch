@@ -3,8 +3,9 @@ const gridContainer = document.querySelector('.sketch-pad');
 const body = document.querySelector('body');
 const reset = document.querySelector('.reset');
 const randomColorButton = document.querySelector('.random-color');
+const defaultColor = 'rgba(0, 0, 0, 1)';
 let randColorSetting = false;
-let paintColor = 'rgba(0, 0, 0, 1)'; // deafault color
+let paintColor = defaultColor;
 
 function createGrid(width) {
   for (let i = 1; i <= width ** 2; i += 1) {
@@ -19,22 +20,11 @@ createGrid(16);
 
 const gridDivs = document.querySelectorAll(`.${divClassName}`);
 
-// use below function as dynamic brush choices
-
-reset.addEventListener('click', () => {
-  gridDivs.forEach((element) => {
-    element.setAttribute('style', 'background-color: white;');
-  });
-});
-
-// create random color capability
-// generate three different integers between 0 and 255
 function randomInt(limit) {
   return Math.floor(Math.random() * (limit + 1));
 }
 
 function randomPaintColor() {
-  // generate random rgb color
   return `rgba(${randomInt(256)}, ${randomInt(256)}, ${randomInt(256)}, 1)`;
 }
 
@@ -85,3 +75,10 @@ gridDivs.forEach((element) => {
 // can do this with a variable that is true or false indicating its state
 
 randomColorButton.addEventListener('click', handleRandomColorClick);
+
+reset.addEventListener('click', () => {
+  gridDivs.forEach((element) => {
+    element.setAttribute('style', 'background-color: white;');
+    if (randColorSetting === true) handleRandomColorClick();
+  });
+});
