@@ -68,9 +68,9 @@ body {
     flex-basis: 50%;
 }
 
-.grid-div:hover {
+/* .grid-div:hover {
     background-color: black;
-}
+} */
 
 .control-container {
     display: flex;
