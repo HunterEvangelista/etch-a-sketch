@@ -6,8 +6,10 @@ const randomColorButton = document.querySelector('.random-color');
 let opacity = 1;
 const defaultColor = `rgba(0, 0, 0, ${opacity})`;
 const opacityButton = document.querySelector('.opacity');
+const eraserButton = document.querySelector('.eraser');
 let randColorSetting = false;
 let opacitySetting = false;
+let eraserSetting = false;
 let paintColor = defaultColor;
 
 function createGrid(width) {
@@ -34,6 +36,10 @@ function randomPaintColor() {
 
 function handleRandomColorClick() {
   randomColorButton.classList.toggle('clicked');
+  if (eraserSetting) {
+    eraserButton.classList.toggle('clicked');
+    eraserSetting = false;
+  }
   if (randColorSetting === true) {
     randColorSetting = false;
   } else if (randColorSetting === false) {
@@ -43,6 +49,10 @@ function handleRandomColorClick() {
 
 function handleOpacityClick() {
   opacityButton.classList.toggle('clicked');
+  if (eraserSetting) {
+    eraserButton.classList.toggle('clicked');
+    eraserSetting = false;
+  }
   if (opacitySetting) {
     opacitySetting = false;
     opacity = 1;
@@ -52,9 +62,22 @@ function handleOpacityClick() {
   }
 }
 
+function handleEraserClick() {
+  eraserButton.classList.toggle('clicked');
+  opacityButton.classList.remove('clicked');
+  randomColorButton.classList.remove('clicked');
+  if (eraserSetting) {
+    eraserSetting = false;
+  } else if (!eraserSetting) {
+    eraserSetting = true;
+  }
+}
+
 function setBrushColor() {
   if (randColorSetting) {
     paintColor = randomPaintColor();
+  } else if (eraserSetting) {
+    paintColor = 'rgba(255, 255, 255, 1)';
   } else {
     paintColor = `rgba(0, 0, 0, ${opacity})`;
   }
@@ -102,7 +125,12 @@ resetButton.addEventListener('click', () => {
     element.setAttribute('style', 'background-color: white;');
     if (randColorSetting === true) handleRandomColorClick();
     if (opacitySetting === true) handleOpacityClick();
+    if (eraserSetting === true) {
+      handleEraserClick();
+    }
   });
 });
 
 opacityButton.addEventListener('click', handleOpacityClick);
+
+eraserButton.addEventListener('click', handleEraserClick);
