@@ -7,6 +7,8 @@ let opacity = 1;
 const defaultColor = `rgba(0, 0, 0, ${opacity})`;
 const opacityButton = document.querySelector('.opacity');
 const eraserButton = document.querySelector('.eraser');
+const slider = document.querySelector('.slider');
+const sliderValue = document.querySelector('.slider-value');
 let randColorSetting = false;
 let opacitySetting = false;
 let eraserSetting = false;
@@ -125,12 +127,20 @@ resetButton.addEventListener('click', () => {
     element.setAttribute('style', 'background-color: white;');
     if (randColorSetting === true) handleRandomColorClick();
     if (opacitySetting === true) handleOpacityClick();
-    if (eraserSetting === true) {
-      handleEraserClick();
-    }
+    if (eraserSetting === true) handleEraserClick();
   });
 });
 
 opacityButton.addEventListener('click', handleOpacityClick);
 
 eraserButton.addEventListener('click', handleEraserClick);
+
+// remaining to do:
+// add slider for grid dimensions
+// finish formatting
+// display slider value in X by X format
+sliderValue.innerHTML = `${slider.value}x${slider.value}`;
+
+slider.oninput = () => {
+  sliderValue.innerHTML = `${this.value}x${this.value}`;
+};
