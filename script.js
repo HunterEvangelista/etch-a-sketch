@@ -142,5 +142,5 @@ eraserButton.addEventListener('click', handleEraserClick);
 sliderValue.innerHTML = `${slider.value}x${slider.value}`;
 
 slider.oninput = () => {
-  sliderValue.innerHTML = `${this.value}x${this.value}`;
+  sliderValue.innerHTML = `${slider.value}x${slider.value}`;
 };
