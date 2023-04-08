@@ -13,20 +13,7 @@ let randColorSetting = false;
 let opacitySetting = false;
 let eraserSetting = false;
 let paintColor = defaultColor;
-
-function createGrid(width) {
-  for (let i = 1; i <= width ** 2; i += 1) {
-    window[`div${i}`] = document.createElement('div');
-    window[`div${i}`].classList.add(divClassName);
-    window[`div${i}`].classList.add('1');
-    window[`div${i}`].setAttribute('id', i);
-    gridContainer.appendChild(window[`div${i}`]);
-  }
-}
-
-createGrid(16);
-
-const gridDivs = document.querySelectorAll(`.${divClassName}`);
+let gridDivs = document.querySelectorAll(`.${divClassName}`);
 
 function randomInt(limit) {
   return Math.floor(Math.random() * (limit + 1));
@@ -109,38 +96,61 @@ function stopDragDraw() {
   });
 }
 
-body.addEventListener('mouseup', stopDragDraw);
-
-gridDivs.forEach((element) => {
-  element.addEventListener('mousedown', () => {
-    element.setAttribute('style', `background-color: ${paintColor};`);
-    gridDivs.forEach((div) => {
-      div.addEventListener('mousemove', dragDraw);
+function applyEventListeners() {
+  gridDivs.forEach((element) => {
+    element.addEventListener('mousedown', () => {
+      element.setAttribute('style', `background-color: ${paintColor};`);
+      gridDivs.forEach((div) => {
+        div.addEventListener('mousemove', dragDraw);
+      });
     });
   });
-});
 
-randomColorButton.addEventListener('click', handleRandomColorClick);
+  randomColorButton.addEventListener('click', handleRandomColorClick);
 
-resetButton.addEventListener('click', () => {
-  gridDivs.forEach((element) => {
-    element.setAttribute('style', 'background-color: white;');
-    if (randColorSetting === true) handleRandomColorClick();
-    if (opacitySetting === true) handleOpacityClick();
-    if (eraserSetting === true) handleEraserClick();
+  body.addEventListener('mouseup', stopDragDraw);
+
+  resetButton.addEventListener('click', () => {
+    gridDivs.forEach((element) => {
+      element.setAttribute('style', 'background-color: white;');
+      if (randColorSetting === true) handleRandomColorClick();
+      if (opacitySetting === true) handleOpacityClick();
+      if (eraserSetting === true) handleEraserClick();
+    });
   });
-});
 
-opacityButton.addEventListener('click', handleOpacityClick);
+  opacityButton.addEventListener('click', handleOpacityClick);
 
-eraserButton.addEventListener('click', handleEraserClick);
+  eraserButton.addEventListener('click', handleEraserClick);
+}
 
-// remaining to do:
-// add slider for grid dimensions
-// finish formatting
-// display slider value in X by X format
+function removeExistingGrid() {
+  gridDivs.forEach((element) => {
+    gridContainer.removeChild(element);
+  });
+}
+
+function createGrid(width) {
+  removeExistingGrid();
+  gridContainer.style.setProperty('--grid-width', width);
+  for (let i = 1; i <= width ** 2; i += 1) {
+    window[`div${i}`] = document.createElement('div');
+    window[`div${i}`].classList.add(divClassName);
+    window[`div${i}`].classList.add('1');
+    window[`div${i}`].setAttribute('id', i);
+    gridContainer.appendChild(window[`div${i}`]);
+  }
+  // reasign gridDivs to the newly generated elements
+  gridDivs = document.querySelectorAll(`.${divClassName}`);
+  applyEventListeners();
+}
+
+// generate intitial grid
+createGrid(slider.value);
+
 sliderValue.innerHTML = `${slider.value}x${slider.value}`;
 
 slider.oninput = () => {
   sliderValue.innerHTML = `${slider.value}x${slider.value}`;
+  createGrid(slider.value);
 };
