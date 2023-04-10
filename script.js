@@ -130,8 +130,17 @@ function removeExistingGrid() {
   });
 }
 
+function restoreDefaults() {
+  randColorSetting = false;
+  opacitySetting = false;
+  eraserSetting = false;
+  opacityButton.classList.remove('clicked');
+  randomColorButton.classList.remove('clicked');
+}
+
 function createGrid(width) {
   removeExistingGrid();
+  restoreDefaults();
   gridContainer.style.setProperty('--grid-width', width);
   for (let i = 1; i <= width ** 2; i += 1) {
     window[`div${i}`] = document.createElement('div');
