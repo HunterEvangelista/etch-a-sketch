@@ -15,9 +15,10 @@ body {
 .body-container {
     display: flex;
     direction: row;
-    border: 1px solid black;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
+    flex: 2;
+    gap: 100px;
 }
 
 .sketch-frame {
@@ -35,7 +36,6 @@ body {
 .sketch-pad {
     display: grid;
     grid-template-columns: repeat(var(--grid-width), 1fr);
-    border: 1px solid black;
     flex-wrap: wrap;
     background-color: white;
     height: 72dvh;
@@ -51,7 +51,6 @@ body {
 }
 
 .grid-div {
-    /* border: 1px solid black; */
     flex-grow: 1;
     flex-basis: 50%;
 }
@@ -103,9 +102,9 @@ body {
     outline: none;
     -webkit-transition: .2s;
     transition: opacity .2s;
-  }
+}
 
-  .slider::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -114,12 +113,42 @@ body {
     background: #252525;
     border: 2px solid #FFD600;
     cursor: pointer;
-  }
+}
 
-  .slider-value {
+.slider-value {
     display: flex;
     font-size: 18px;
     justify-content: center;
     align-items: center;
     padding-top: 5px;
-  }
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-height: 32px;
+    flex-basis: 0;
+    font-size: 16px;
+    width: 110%;
+    border-top: 2px solid #F44336;
+    padding-top: 5px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.footer img {
+    height: 24px;
+    width: auto;
+}
+
+@keyframes spin {
+    100% {transform: rotate(360deg);}
+}
+
+.footer img:hover {
+    animation-name: spin;
+    animation-duration: 0.75s;
+}
